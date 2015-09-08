@@ -4,13 +4,13 @@ This module uses the new style connection and cursor types to build a psycopg
 1.1.1.x compatibility layer. It should be considered a temporary hack to run
 old code while porting to psycopg 2. Import it as follows::
 
-    from psycopg2 import psycopg1 as psycopg
+    from psycopg261 import psycopg1 as psycopg
 """
 # psycopg/psycopg1.py - psycopg 1.1.x compatibility module
 #
 # Copyright (C) 2003-2010 Federico Di Gregorio  <fog@debian.org>
 #
-# psycopg2 is free software: you can redistribute it and/or modify it
+# psycopg261 is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -23,17 +23,17 @@ old code while porting to psycopg 2. Import it as follows::
 # You must obey the GNU Lesser General Public License in all respects for
 # all of the code used other than OpenSSL.
 #
-# psycopg2 is distributed in the hope that it will be useful, but WITHOUT
+# psycopg261 is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 # FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
 # License for more details.
 
 import _psycopg as _2psycopg
-from psycopg2.extensions import cursor as _2cursor
-from psycopg2.extensions import connection as _2connection
+from psycopg261.extensions import cursor as _2cursor
+from psycopg261.extensions import connection as _2connection
 
-from psycopg2 import *
-import psycopg2.extensions as _ext
+from psycopg261 import *
+import psycopg261.extensions as _ext
 _2connect = connect
 
 def connect(*args, **kwargs):

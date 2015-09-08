@@ -1,7 +1,7 @@
 """Implementation of the JSON adaptation objects
 
 This module exists to avoid a circular import problem: pyscopg2.extras depends
-on psycopg2.extension, so I can't create the default JSON typecasters in
+on psycopg261.extension, so I can't create the default JSON typecasters in
 extensions importing register_json from extras.
 """
 
@@ -9,7 +9,7 @@ extensions importing register_json from extras.
 #
 # Copyright (C) 2012 Daniele Varrazzo  <daniele.varrazzo@gmail.com>
 #
-# psycopg2 is free software: you can redistribute it and/or modify it
+# psycopg261 is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -22,15 +22,15 @@ extensions importing register_json from extras.
 # You must obey the GNU Lesser General Public License in all respects for
 # all of the code used other than OpenSSL.
 #
-# psycopg2 is distributed in the hope that it will be useful, but WITHOUT
+# psycopg261 is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 # FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
 # License for more details.
 
 import sys
 
-from psycopg2._psycopg import ISQLQuote, QuotedString
-from psycopg2._psycopg import new_type, new_array_type, register_type
+from psycopg261._psycopg import ISQLQuote, QuotedString
+from psycopg261._psycopg import new_type, new_array_type, register_type
 
 
 # import the best json implementation available
@@ -53,13 +53,13 @@ JSONBARRAY_OID = 3807
 
 class Json(object):
     """
-    An `~psycopg2.extensions.ISQLQuote` wrapper to adapt a Python object to
+    An `~psycopg261.extensions.ISQLQuote` wrapper to adapt a Python object to
     :sql:`json` data type.
 
     `!Json` can be used to wrap any object supported by the provided *dumps*
     function.  If none is provided, the standard :py:func:`json.dumps()` is
     used (`!simplejson` for Python < 2.6;
-    `~psycopg2.extensions.ISQLQuote.getquoted()` will raise `!ImportError` if
+    `~psycopg261.extensions.ISQLQuote.getquoted()` will raise `!ImportError` if
     the module is not available).
 
     """
@@ -127,7 +127,7 @@ def register_json(conn_or_curs=None, globally=False, loads=None,
     The connection or cursor passed to the function will be used to query the
     database and look for the OID of the :sql:`json` type (or an alternative
     type if *name* if provided). No query is performed if *oid* and *array_oid*
-    are provided.  Raise `~psycopg2.ProgrammingError` if the type is not found.
+    are provided.  Raise `~psycopg261.ProgrammingError` if the type is not found.
 
     """
     if oid is None:
@@ -190,8 +190,8 @@ def _create_json_typecasters(oid, array_oid, loads=None, name='JSON'):
 
 def _get_json_oids(conn_or_curs, name='json'):
     # lazy imports
-    from psycopg2.extensions import STATUS_IN_TRANSACTION
-    from psycopg2.extras import _solve_conn_curs
+    from psycopg261.extensions import STATUS_IN_TRANSACTION
+    from psycopg261.extras import _solve_conn_curs
 
     conn, curs = _solve_conn_curs(conn_or_curs)
 

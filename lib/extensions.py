@@ -14,7 +14,7 @@ This module holds all the extensions to the DBAPI-2.0 provided by psycopg.
 #
 # Copyright (C) 2003-2010 Federico Di Gregorio  <fog@debian.org>
 #
-# psycopg2 is free software: you can redistribute it and/or modify it
+# psycopg261 is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -27,43 +27,43 @@ This module holds all the extensions to the DBAPI-2.0 provided by psycopg.
 # You must obey the GNU Lesser General Public License in all respects for
 # all of the code used other than OpenSSL.
 #
-# psycopg2 is distributed in the hope that it will be useful, but WITHOUT
+# psycopg261 is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 # FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
 # License for more details.
 
-from psycopg2._psycopg import UNICODE, INTEGER, LONGINTEGER, BOOLEAN, FLOAT
-from psycopg2._psycopg import TIME, DATE, INTERVAL, DECIMAL
-from psycopg2._psycopg import BINARYARRAY, BOOLEANARRAY, DATEARRAY, DATETIMEARRAY
-from psycopg2._psycopg import DECIMALARRAY, FLOATARRAY, INTEGERARRAY, INTERVALARRAY
-from psycopg2._psycopg import LONGINTEGERARRAY, ROWIDARRAY, STRINGARRAY, TIMEARRAY
-from psycopg2._psycopg import UNICODEARRAY
+from psycopg261._psycopg import UNICODE, INTEGER, LONGINTEGER, BOOLEAN, FLOAT
+from psycopg261._psycopg import TIME, DATE, INTERVAL, DECIMAL
+from psycopg261._psycopg import BINARYARRAY, BOOLEANARRAY, DATEARRAY, DATETIMEARRAY
+from psycopg261._psycopg import DECIMALARRAY, FLOATARRAY, INTEGERARRAY, INTERVALARRAY
+from psycopg261._psycopg import LONGINTEGERARRAY, ROWIDARRAY, STRINGARRAY, TIMEARRAY
+from psycopg261._psycopg import UNICODEARRAY
 
-from psycopg2._psycopg import Binary, Boolean, Int, Float, QuotedString, AsIs
+from psycopg261._psycopg import Binary, Boolean, Int, Float, QuotedString, AsIs
 try:
-    from psycopg2._psycopg import MXDATE, MXDATETIME, MXINTERVAL, MXTIME
-    from psycopg2._psycopg import MXDATEARRAY, MXDATETIMEARRAY, MXINTERVALARRAY, MXTIMEARRAY
-    from psycopg2._psycopg import DateFromMx, TimeFromMx, TimestampFromMx
-    from psycopg2._psycopg import IntervalFromMx
+    from psycopg261._psycopg import MXDATE, MXDATETIME, MXINTERVAL, MXTIME
+    from psycopg261._psycopg import MXDATEARRAY, MXDATETIMEARRAY, MXINTERVALARRAY, MXTIMEARRAY
+    from psycopg261._psycopg import DateFromMx, TimeFromMx, TimestampFromMx
+    from psycopg261._psycopg import IntervalFromMx
 except ImportError:
     pass
 
 try:
-    from psycopg2._psycopg import PYDATE, PYDATETIME, PYINTERVAL, PYTIME
-    from psycopg2._psycopg import PYDATEARRAY, PYDATETIMEARRAY, PYINTERVALARRAY, PYTIMEARRAY
-    from psycopg2._psycopg import DateFromPy, TimeFromPy, TimestampFromPy
-    from psycopg2._psycopg import IntervalFromPy
+    from psycopg261._psycopg import PYDATE, PYDATETIME, PYINTERVAL, PYTIME
+    from psycopg261._psycopg import PYDATEARRAY, PYDATETIMEARRAY, PYINTERVALARRAY, PYTIMEARRAY
+    from psycopg261._psycopg import DateFromPy, TimeFromPy, TimestampFromPy
+    from psycopg261._psycopg import IntervalFromPy
 except ImportError:
     pass
 
-from psycopg2._psycopg import adapt, adapters, encodings, connection, cursor, lobject, Xid
-from psycopg2._psycopg import string_types, binary_types, new_type, new_array_type, register_type
-from psycopg2._psycopg import ISQLQuote, Notify, Diagnostics, Column
+from psycopg261._psycopg import adapt, adapters, encodings, connection, cursor, lobject, Xid
+from psycopg261._psycopg import string_types, binary_types, new_type, new_array_type, register_type
+from psycopg261._psycopg import ISQLQuote, Notify, Diagnostics, Column
 
-from psycopg2._psycopg import QueryCanceledError, TransactionRollbackError
+from psycopg261._psycopg import QueryCanceledError, TransactionRollbackError
 
 try:
-    from psycopg2._psycopg import set_wait_callback, get_wait_callback
+    from psycopg261._psycopg import set_wait_callback, get_wait_callback
 except ImportError:
     pass
 
@@ -152,7 +152,7 @@ class NoneAdapter(object):
 
 
 # Create default json typecasters for PostgreSQL 9.2 oids
-from psycopg2._json import register_default_json, register_default_jsonb
+from psycopg261._json import register_default_json, register_default_jsonb
 
 try:
     JSON, JSONARRAY = register_default_json()
@@ -164,7 +164,7 @@ del register_default_json, register_default_jsonb
 
 
 # Create default Range typecasters
-from psycopg2. _range import Range
+from psycopg261. _range import Range
 del Range
 
 

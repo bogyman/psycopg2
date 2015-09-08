@@ -1,4 +1,4 @@
-"""Miscellaneous goodies for psycopg2
+"""Miscellaneous goodies for psycopg26161
 
 This module is a generic place used to hold little helper functions
 and classes until a better place in the distribution is found.
@@ -7,7 +7,7 @@ and classes until a better place in the distribution is found.
 #
 # Copyright (C) 2003-2010 Federico Di Gregorio  <fog@debian.org>
 #
-# psycopg2 is free software: you can redistribute it and/or modify it
+# psycopg261 is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -20,7 +20,7 @@ and classes until a better place in the distribution is found.
 # You must obey the GNU Lesser General Public License in all respects for
 # all of the code used other than OpenSSL.
 #
-# psycopg2 is distributed in the hope that it will be useful, but WITHOUT
+# psycopg261 is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 # FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
 # License for more details.
@@ -35,12 +35,12 @@ try:
 except:
     _logging = None
 
-import psycopg2
-from psycopg2 import extensions as _ext
-from psycopg2.extensions import cursor as _cursor
-from psycopg2.extensions import connection as _connection
-from psycopg2.extensions import adapt as _A
-from psycopg2.extensions import b
+import psycopg261
+from psycopg261 import extensions as _ext
+from psycopg261.extensions import cursor as _cursor
+from psycopg261.extensions import connection as _connection
+from psycopg261.extensions import adapt as _A
+from psycopg261.extensions import b
 
 
 class DictCursorBase(_cursor):
@@ -272,7 +272,7 @@ class NamedTupleCursor(_cursor):
     their elements can be accessed both as regular numeric items as well as
     attributes.
 
-        >>> nt_cur = conn.cursor(cursor_factory=psycopg2.extras.NamedTupleCursor)
+        >>> nt_cur = conn.cursor(cursor_factory=psycopg261.extras.NamedTupleCursor)
         >>> rec = nt_cur.fetchone()
         >>> rec
         Record(id=1, num=100, data="abc'def")
@@ -567,12 +567,12 @@ def wait_select(conn):
     """Wait until a connection or cursor has data available.
 
     The function is an example of a wait callback to be registered with
-    `~psycopg2.extensions.set_wait_callback()`. This function uses
+    `~psycopg261.extensions.set_wait_callback()`. This function uses
     :py:func:`~select.select()` to wait for data available.
 
     """
     import select
-    from psycopg2.extensions import POLL_OK, POLL_READ, POLL_WRITE
+    from psycopg261.extensions import POLL_OK, POLL_READ, POLL_WRITE
 
     while 1:
         state = conn.poll()
@@ -589,7 +589,7 @@ def wait_select(conn):
 def _solve_conn_curs(conn_or_curs):
     """Return the connection and a DBAPI cursor from a connection or cursor."""
     if conn_or_curs is None:
-        raise psycopg2.ProgrammingError("no connection or cursor provided")
+        raise psycopg261.ProgrammingError("no connection or cursor provided")
 
     if hasattr(conn_or_curs, 'execute'):
         conn = conn_or_curs.connection
@@ -680,7 +680,7 @@ class HstoreAdapter(object):
         start = 0
         for m in self._re_hstore.finditer(s):
             if m is None or m.start() != start:
-                raise psycopg2.InterfaceError(
+                raise psycopg261.InterfaceError(
                     "error parsing hstore pair at char %d" % start)
             k = _bsdec.sub(r'\1', m.group(1))
             v = m.group(2)
@@ -691,7 +691,7 @@ class HstoreAdapter(object):
             start = m.end()
 
         if start < len(s):
-            raise psycopg2.InterfaceError(
+            raise psycopg261.InterfaceError(
                 "error parsing hstore: unparsed data after char %d" % start)
 
         return rv
@@ -766,12 +766,12 @@ def register_hstore(conn_or_curs, globally=False, unicode=False,
 
     The |hstore| contrib module must be already installed in the database
     (executing the ``hstore.sql`` script in your ``contrib`` directory).
-    Raise `~psycopg2.ProgrammingError` if the type is not found.
+    Raise `~psycopg261.ProgrammingError` if the type is not found.
     """
     if oid is None:
         oid = HstoreAdapter.get_oids(conn_or_curs)
         if oid is None or not oid[0]:
-            raise psycopg2.ProgrammingError(
+            raise psycopg261.ProgrammingError(
                 "hstore type not found in the database. "
                 "please install it from your 'contrib/hstore.sql' file")
         else:
@@ -833,7 +833,7 @@ class CompositeCaster(object):
 
         tokens = self.tokenize(s)
         if len(tokens) != len(self.atttypes):
-            raise psycopg2.DataError(
+            raise psycopg261.DataError(
                 "expecting %d components for the type %s, %d found instead" %
                 (len(self.atttypes), self.name, len(tokens)))
 
@@ -867,7 +867,7 @@ class CompositeCaster(object):
         rv = []
         for m in self._re_tokenize.finditer(s):
             if m is None:
-                raise psycopg2.InterfaceError("can't parse type: %r" % s)
+                raise psycopg261.InterfaceError("can't parse type: %r" % s)
             if m.group(1) is not None:
                 rv.append(None)
             elif m.group(2) is not None:
@@ -927,7 +927,7 @@ ORDER BY attnum;
             conn.rollback()
 
         if not recs:
-            raise psycopg2.ProgrammingError(
+            raise psycopg261.ProgrammingError(
                 "PostgreSQL type '%s' not found" % name)
 
         type_oid = recs[0][0]
@@ -965,11 +965,11 @@ def register_composite(name, conn_or_curs, globally=False, factory=None):
 
 
 # expose the json adaptation stuff into the module
-from psycopg2._json import json, Json, register_json
-from psycopg2._json import register_default_json, register_default_jsonb
+from psycopg261._json import json, Json, register_json
+from psycopg261._json import register_default_json, register_default_jsonb
 
 
 # Expose range-related objects
-from psycopg2._range import Range, NumericRange
-from psycopg2._range import DateRange, DateTimeRange, DateTimeTZRange
-from psycopg2._range import register_range, RangeAdapter, RangeCaster
+from psycopg261._range import Range, NumericRange
+from psycopg261._range import DateRange, DateTimeRange, DateTimeTZRange
+from psycopg261._range import register_range, RangeAdapter, RangeCaster

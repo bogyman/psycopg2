@@ -6,7 +6,7 @@ provide new-style classes for connection and cursor objects and other sweet
 candies. Like the original, psycopg 2 was written with the aim of being very
 small and fast, and stable as a rock.
 
-Homepage: http://initd.org/projects/psycopg2
+Homepage: http://initd.org/projects/psycopg261
 
 .. _PostgreSQL: http://www.postgresql.org/
 .. _Python: http://www.python.org/
@@ -20,7 +20,7 @@ Homepage: http://initd.org/projects/psycopg2
 #
 # Copyright (C) 2003-2010 Federico Di Gregorio  <fog@debian.org>
 #
-# psycopg2 is free software: you can redistribute it and/or modify it
+# psycopg261 is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -33,7 +33,7 @@ Homepage: http://initd.org/projects/psycopg2
 # You must obey the GNU Lesser General Public License in all respects for
 # all of the code used other than OpenSSL.
 #
-# psycopg2 is distributed in the hope that it will be useful, but WITHOUT
+# psycopg261 is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 # FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
 # License for more details.
@@ -47,24 +47,24 @@ Homepage: http://initd.org/projects/psycopg2
 
 # Import the DBAPI-2.0 stuff into top-level module.
 
-from psycopg2._psycopg import BINARY, NUMBER, STRING, DATETIME, ROWID
+from psycopg261._psycopg import BINARY, NUMBER, STRING, DATETIME, ROWID
 
-from psycopg2._psycopg import Binary, Date, Time, Timestamp
-from psycopg2._psycopg import DateFromTicks, TimeFromTicks, TimestampFromTicks
+from psycopg261._psycopg import Binary, Date, Time, Timestamp
+from psycopg261._psycopg import DateFromTicks, TimeFromTicks, TimestampFromTicks
 
-from psycopg2._psycopg import Error, Warning, DataError, DatabaseError, ProgrammingError
-from psycopg2._psycopg import IntegrityError, InterfaceError, InternalError
-from psycopg2._psycopg import NotSupportedError, OperationalError
+from psycopg261._psycopg import Error, Warning, DataError, DatabaseError, ProgrammingError
+from psycopg261._psycopg import IntegrityError, InterfaceError, InternalError
+from psycopg261._psycopg import NotSupportedError, OperationalError
 
-from psycopg2._psycopg import _connect, apilevel, threadsafety, paramstyle
-from psycopg2._psycopg import __version__
+from psycopg261._psycopg import _connect, apilevel, threadsafety, paramstyle
+from psycopg261._psycopg import __version__
 
-from psycopg2 import tz
+from psycopg261 import tz
 
 
 # Register default adapters.
 
-import psycopg2.extensions as _ext
+import psycopg261.extensions as _ext
 _ext.register_adapter(tuple, _ext.SQL_IN)
 _ext.register_adapter(type(None), _ext.NoneAdapter)
 
@@ -76,7 +76,7 @@ try:
 except ImportError:
     pass
 else:
-    from psycopg2._psycopg import Decimal as Adapter
+    from psycopg261._psycopg import Decimal as Adapter
     _ext.register_adapter(Decimal, Adapter)
     del Decimal, Adapter
 
@@ -107,11 +107,11 @@ def connect(dsn=None,
 
     The connection parameters can be specified either as a string:
 
-        conn = psycopg2.connect("dbname=test user=postgres password=secret")
+        conn = psycopg261.connect("dbname=test user=postgres password=secret")
 
     or using a set of keyword arguments:
 
-        conn = psycopg2.connect(database="test", user="postgres", password="secret")
+        conn = psycopg261.connect(database="test", user="postgres", password="secret")
 
     The basic connection parameters are:
 
