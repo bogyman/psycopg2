@@ -593,7 +593,7 @@ except:
     print("failed to read readme: ignoring...")
     readme = __doc__
 
-setup(name="psycopg2",
+setup(name="psycopg261",
       version=PSYCOPG_VERSION,
       maintainer="Federico Di Gregorio",
       maintainer_email="fog@initd.org",
@@ -607,8 +607,8 @@ setup(name="psycopg2",
       long_description="\n".join(readme.split("\n")[2:]).lstrip(),
       classifiers=[x for x in classifiers.split("\n") if x],
       data_files=data_files,
-      package_dir={'psycopg2': 'lib', 'psycopg2.tests': 'tests'},
-      packages=['psycopg2', 'psycopg2.tests'],
+      package_dir={'psycopg261': 'lib', 'psycopg261.tests': 'tests'},
+      packages=['psycopg261', 'psycopg261.tests'],
       cmdclass={
           'build_ext': psycopg_build_ext,
           'build_py': build_py, },
